@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useLogin from "../hooks/useLogin.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -30,10 +30,13 @@ const Login = () => {
           type="password"
           name="password"
           id="password"
-          className="bg-slate-500 rounded-md px-3 py-1.5 text-black"
+          className="bg-slate-500 rounded-md px-3 py-1.5 text-black mb-3"
         />
+        <Link to="/signup" className="underline text-center">
+          {"Create an account"}
+        </Link>
         <button
-          className="mt-5 py-2 bg-primary text-black rounded-md"
+          className="mt-2 py-2 bg-primary text-black rounded-md"
           onClick={loginHandler}>
           Login
         </button>

@@ -11,6 +11,7 @@ import Login from "./pages/Login.jsx";
 import UserDetails from "./pages/UserDetails.jsx";
 import SavedTeams from "./pages/SavedTeams.jsx";
 import TeamDetails from "./pages/TeamDetails.jsx";
+import Signup from "./pages/Signup.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/team/:id" element={<TeamDetails />} />
           <Route path="/teams" element={<SavedTeams />} />
