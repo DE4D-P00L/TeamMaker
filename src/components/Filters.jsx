@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useGetFilters from "../hooks/useGetFilters.js";
 import { useForm } from "react-hook-form";
+import { IoFilterSharp } from "react-icons/io5";
 
 const Filters = ({
   setPage,
@@ -20,6 +21,8 @@ const Filters = ({
       available: avail,
     },
   });
+
+  const [filterOpen, setFilterOpen] = useState(false);
 
   useEffect(() => {
     fetchFilters();
@@ -59,50 +62,67 @@ const Filters = ({
   };
 
   return (
-    <div className="w-[300px] my-10 flex flex-col p-3 bg-neutral rounded-md h-fit">
-      <div>
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-          className="bg-gray-200 rounded-full w-full my-3 text-black px-3 py-2"
-        />
+    <div className="w-full max-w-[300px] sm:my-10 mx-auto sm:m-0 relative my-4">
+      <button
+        className="flex items-center justify-between bg-neutral z-10 px-3 py-3 w-full"
+        onClick={() => setFilterOpen((prev) => !prev)}>
+        <span>Filters</span>
+        <IoFilterSharp />
+      </button>
+      <div
+        className={`flex-col rounded-md h-fit ${
+          filterOpen ? "flex" : "hidden"
+        } sm:flex bg-neutral w-full p-3 top-0`}>
+        <div>
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+            className="bg-gray-200 rounded-full w-full mb-3 text-black px-3 py-2"
+          />
+        </div>
+        <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+          <h2 className="text-xl mb-3">Domains</h2>
+          {loadingFilters && <p>Loading...</p>}
+          {!loadingFilters &&
+            filters?.uniqueDomains?.map((domain) => (
+              <label key={domain._id}>
+                <input
+                  type="checkbox"
+                  {...register(`domains[${domain._id}]`)}
+                />{" "}
+                {`${domain._id}`}
+              </label>
+            ))}
+          <h2 className="text-xl mb-3 mt-5">Genders</h2>
+          {loadingFilters && <p>Loading...</p>}
+          {!loadingFilters &&
+            filters?.uniqueGenders?.map((gender) => (
+              <label key={gender._id}>
+                <input
+                  type="checkbox"
+                  {...register(`genders[${gender._id}]`)}
+                />{" "}
+                {`${gender._id}`}
+              </label>
+            ))}
+          <h2 className="text-xl mb-3 mt-5">Availability</h2>
+          <label className="flex gap-2">
+            <input type="radio" {...register("available")} value="false" />
+            All
+          </label>
+          <label className="flex gap-2">
+            <input type="radio" {...register("available")} value="true" />
+            Available
+          </label>
+          <button
+            className="bg-accent text-black py-2 mt-5 rounded-md"
+            type="submit">
+            Filter
+          </button>
+        </form>
       </div>
-      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="text-xl mb-3">Domains</h2>
-        {loadingFilters && <p>Loading...</p>}
-        {!loadingFilters &&
-          filters?.uniqueDomains?.map((domain) => (
-            <label key={domain._id}>
-              <input type="checkbox" {...register(`domains[${domain._id}]`)} />{" "}
-              {`${domain._id}`}
-            </label>
-          ))}
-        <h2 className="text-xl mb-3 mt-5">Genders</h2>
-        {loadingFilters && <p>Loading...</p>}
-        {!loadingFilters &&
-          filters?.uniqueGenders?.map((gender) => (
-            <label key={gender._id}>
-              <input type="checkbox" {...register(`genders[${gender._id}]`)} />{" "}
-              {`${gender._id}`}
-            </label>
-          ))}
-        <h2 className="text-xl mb-3 mt-5">Availability</h2>
-        <label className="flex gap-2">
-          <input type="radio" {...register("available")} value="false" />
-          All
-        </label>
-        <label className="flex gap-2">
-          <input type="radio" {...register("available")} value="true" />
-          Available
-        </label>
-        <button
-          className="bg-accent text-black py-2 mt-5 rounded-md"
-          type="submit">
-          Filter
-        </button>
-      </form>
     </div>
   );
 };

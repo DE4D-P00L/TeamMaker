@@ -10,7 +10,7 @@ const UserList = () => {
   const [avail, setAvail] = useState("false");
 
   return (
-    <div className="max-w-7xl mx-auto flex gap-3">
+    <div className="max-w-7xl mx-auto flex gap-3 sm:flex-row flex-col">
       <Filters
         setPage={setPage}
         setDomainFilter={setDomainFilter}

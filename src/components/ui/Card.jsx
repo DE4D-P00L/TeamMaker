@@ -19,7 +19,7 @@ const Card = ({ user }) => {
   };
 
   return (
-    <div className="w-[200px] flex flex-col bg-neutral px-3 py-5 rounded-md justify-between">
+    <div className="sm:w-[200px] w-full flex flex-col bg-neutral px-3 py-5 rounded-md justify-between">
       <div className="flex flex-col">
         <div className="flex justify-between items-start">
           <img src={avatar} alt="avatar" className="bg-white rounded-full" />

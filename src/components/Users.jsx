@@ -22,7 +22,7 @@ const Users = ({
   };
   return (
     <div className="flex-1">
-      <h2 className="text-2xl my-5 text-center">Users</h2>
+      <h2 className="text-2xl sm:my-5 my-2 text-center">Users</h2>
       {!loading && (
         <div className="flex gap-3 flex-wrap justify-center bg-[#171c22] p-3 rounded-md">
           {data?.users?.map((user) => (
